@@ -1,0 +1,23 @@
+body{
+ /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+
+
+/* Space between cards */
+.card{
+    margin-bottom: 20px;
+}
+
+.navbar-nav > li{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+}
