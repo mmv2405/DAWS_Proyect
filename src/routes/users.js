@@ -1,12 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const User = require('../models/Users');
-const passport  = require('passport');
+const passport = require('passport');
 
+router.post('/users/login', passport.authenticate('local', {
+    successRedirect: '/notes',
+    failureRedirect: '/users/login',
+    failureFlash: true
+}));
 
 router.get('/users/login', (req, res) => {
     res.render('users/login');
 });
+
 
 router.get('/users/logout', (req, res) => {
     req.logOut();
@@ -42,7 +48,7 @@ router.post('/users/register', async (req, res) => {
             text: 'Passwords do not match'
         });
     }
-    if (!password.length) {
+    if (password.length > 6) {
         errors.push({
             text: 'Password needs to be at least 6 characters'
         });
@@ -65,29 +71,25 @@ router.post('/users/register', async (req, res) => {
             req.flash('error', 'The Email is already in use');
             //res.redirect('/users/login');
         }
-    const newUser = new User({
-        name,
-        lastname,
-        email,
-        password
-    });
-    newUser.password = await newUser.encryptPassword(password);
-    await newUser.save();
-    req.flash('succes', 'Registration success')
-    res.redirect('/users/login');
-}
+        const newUser = new User({
+            name,
+            lastname,
+            email,
+            password
+        });
+        newUser.password = await newUser.encryptPassword(password);
+        await newUser.save();
+        req.flash('succes', 'Registration success')
+        res.redirect('/users/login');
+    }
 
-console.log(req.body)
+    console.log(req.body)
 
 });
 
-router.post('/users/login', passport.authenticate('local',{
-    successRedirect: '/notes',
-    failureRedirect: '/users/login',
-    failureFlash: true
-}));
 
-router.use(function(req,res,next){
+
+router.use(function (req, res, next) {
     res.status(404).render('404.hbs');
 }); //Renders on auth websites
 

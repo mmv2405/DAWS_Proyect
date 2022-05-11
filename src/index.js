@@ -43,7 +43,6 @@ app.use((req,res,next)=>{
     res.locals.succes = req.flash('succes')
     res.locals.errors = req.flash('errors')
     res.locals.error = req.flash('error')
-    res.locals.user = req.user || null
     next();
 })
 //Routes

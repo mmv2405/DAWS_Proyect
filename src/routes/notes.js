@@ -38,7 +38,7 @@ router.post('/notes/newNote',isAuthenticated,async (req, res)=>{
 
 
 
-
+//DISPLAY EACH USERS NOTES req.user.id models notes
 router.get('/notes',isAuthenticated, async (req,res)=>{
    const notes = await Note.find({user: req.user.id}).sort({date:'desc'}).lean();//get only one user note 
    //lean(): to get a json object (instead of a mongoose one)

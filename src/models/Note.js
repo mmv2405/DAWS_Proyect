@@ -6,7 +6,8 @@ const Note = new Schema({
     title: { type: String, required: true},
     description: {type: String, required: true},
     date:{type:Date, default:Date.now },
-    name:{type: String}
+    user:{type: String},
+    
 })
 
 module.exports = mongoose.model('Note', Note);
